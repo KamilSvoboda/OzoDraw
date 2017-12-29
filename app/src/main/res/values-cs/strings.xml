@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OzoDraw</string>
+    <string name="menu_color">Barva</string>
+    <string name="mennu_erase">Guma</string>
+    <string name="menu_new">Smazat vše</string>
+    <string name="menu_save">Uložit</string>
+    <string name="menu_color_black">Černá</string>
+    <string name="menu_color_blue">Modrá</string>
+    <string name="menu_color_green">Zelená</string>
+    <string name="menu_color_red">Červená</string>
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">OzoDraw</string>
+    <string name="menu_color">Color</string>
+    <string name="mennu_erase">Rubber</string>
+    <string name="menu_new">Clear</string>
+    <string name="menu_save">Save</string>
+    <string name="menu_color_black">Black</string>
+    <string name="menu_color_blue">Blue</string>
+    <string name="menu_color_green">Green</string>
+    <string name="menu_color_red">Red</string>
+</resources>
