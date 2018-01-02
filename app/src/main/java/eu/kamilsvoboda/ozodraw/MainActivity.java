@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     MyView mv;
     private Paint mPaint;
     private int mSelectedColor = Color.BLACK;
+    private int mSegmentIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void touch_start(float x, float y) {
+            mSegmentIndex = 0;
             mPath.reset();
             mPath.moveTo(x, y);
             mX = x;
@@ -112,8 +114,19 @@ public class MainActivity extends AppCompatActivity {
                 mY = y;
             }
             mPathMeasure.setPath(mPath, false);
-            //if (mPathMeasure.getLength() > 40)
-            //touch_up();
+            if (mPathMeasure.getLength() > STROKE_WIDTH * 0.75) {
+                mSegmentIndex++;
+                if (mSegmentIndex < 3) {
+                    mCanvas.drawPath(mPath, mPaint);
+                    mPath.reset();
+                    mPath.moveTo(mX, mY);
+
+                    if (mPaint.getColor() != Color.LTGRAY) {
+                        mPaint.setColor(Color.LTGRAY);
+                    } else mPaint.setColor(mSelectedColor);
+
+                }
+            }
         }
 
         private void touch_up() {
