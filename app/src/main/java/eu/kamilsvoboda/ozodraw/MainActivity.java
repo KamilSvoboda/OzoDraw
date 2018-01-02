@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PathMeasure;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.os.Bundle;
@@ -40,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
         mv.setDrawingCacheEnabled(true);
 
         setContentView(mv);
+        initPaint();
+    }
+
+    private void initPaint() {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(STROKE_WIDTH);
+        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
     }
 
     public class MyView extends View {
@@ -55,7 +61,10 @@ public class MainActivity extends AppCompatActivity {
         private Bitmap mBitmap;
         private Canvas mCanvas;
         private Path mPath;
+        private PathMeasure mPathMeasure;
         private Paint mBitmapPaint;
+        private float mX, mY;
+        private static final float TOUCH_TOLERANCE = 4;
         Context context;
 
         public MyView(Context c) {
@@ -63,11 +72,13 @@ public class MainActivity extends AppCompatActivity {
             context = c;
             mPath = new Path();
             mBitmapPaint = new Paint(Paint.DITHER_FLAG);
-
+            mPathMeasure = new PathMeasure();
         }
 
         public void clear() {
-            mCanvas.drawColor(Color.WHITE);
+            mPath = new Path();
+            mBitmap = Bitmap.createBitmap(mBitmap.getWidth(), mBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            mCanvas = new Canvas(mBitmap);
             invalidate();
         }
 
@@ -81,21 +92,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
-
             canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
             canvas.drawPath(mPath, mPaint);
         }
 
-        private float mX, mY;
-        private static final float TOUCH_TOLERANCE = 4;
-
         private void touch_start(float x, float y) {
-            //showDialog();
             mPath.reset();
             mPath.moveTo(x, y);
             mX = x;
             mY = y;
-
         }
 
         private void touch_move(float x, float y) {
@@ -106,6 +111,9 @@ public class MainActivity extends AppCompatActivity {
                 mX = x;
                 mY = y;
             }
+            mPathMeasure.setPath(mPath, false);
+            //if (mPathMeasure.getLength() > 40)
+            //touch_up();
         }
 
         private void touch_up() {
@@ -114,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
             mCanvas.drawPath(mPath, mPaint);
             // kill this so we don't double draw
             mPath.reset();
-            mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
         }
 
         @Override
@@ -128,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
                     invalidate();
                     break;
                 case MotionEvent.ACTION_MOVE:
-
                     touch_move(x, y);
                     invalidate();
                     break;
@@ -155,34 +161,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        mPaint.setXfermode(null);
-        mPaint.setAlpha(0xFF);
-        mPaint.setStrokeWidth(STROKE_WIDTH);
         switch (item.getItemId()) {
             case R.id.menu_color_red:
                 mSelectedColor = COLOR_RED;
-                if (mPaint != null)
-                    mPaint.setColor(mSelectedColor);
+                initPaint();
                 break;
             case R.id.menu_color_green:
                 mSelectedColor = COLOR_GREEN;
-                if (mPaint != null)
-                    mPaint.setColor(mSelectedColor);
+                initPaint();
                 break;
             case R.id.menu_color_blue:
                 mSelectedColor = COLOR_BLUE;
-                if (mPaint != null)
-                    mPaint.setColor(mSelectedColor);
+                initPaint();
                 break;
             case R.id.menu_color_black:
                 mSelectedColor = Color.BLACK;
-                if (mPaint != null)
-                    mPaint.setColor(mSelectedColor);
+                initPaint();
                 break;
             case R.id.menu_erase:
-                mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
                 mPaint.setStrokeWidth(STROKE_WIDTH * 2);
-                mPaint.setAlpha(0x80);
+                mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
                 break;
             case R.id.menu_new:
                 mv.clear();
