@@ -103,9 +103,9 @@ public class MainActivity extends AppCompatActivity {
         private void touch_start(float x, float y) {
 
             mInstruction = new ArrayList<>(3);
-            mInstruction.add(Color.GREEN);
-            mInstruction.add(Color.BLUE);
-            mInstruction.add(Color.CYAN);
+            mInstruction.add(COLOR_BLUE);
+            mInstruction.add(COLOR_RED);
+            mInstruction.add(COLOR_BLUE);
             mInstructionSegment = 0;
 
             mPath.reset();
