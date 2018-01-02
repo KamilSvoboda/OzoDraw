@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static int COLOR_RED = Color.parseColor("#910a0a");
@@ -32,7 +33,9 @@ public class MainActivity extends AppCompatActivity {
     MyView mv;
     private Paint mPaint;
     private int mSelectedColor = Color.BLACK;
-    private int mSegmentIndex = 0;
+
+    private ArrayList<Integer> mInstruction = null;
+    private int mInstructionSegment = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +101,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void touch_start(float x, float y) {
-            mSegmentIndex = 0;
+
+            mInstruction = new ArrayList<>(3);
+            mInstruction.add(Color.GREEN);
+            mInstruction.add(Color.BLUE);
+            mInstruction.add(Color.CYAN);
+            mInstructionSegment = 0;
+
             mPath.reset();
             mPath.moveTo(x, y);
             mX = x;
@@ -113,18 +122,20 @@ public class MainActivity extends AppCompatActivity {
                 mX = x;
                 mY = y;
             }
-            mPathMeasure.setPath(mPath, false);
-            if (mPathMeasure.getLength() > STROKE_WIDTH * 0.75) {
-                mSegmentIndex++;
-                if (mSegmentIndex < 3) {
+            if (mInstruction != null) {
+                mPathMeasure.setPath(mPath, false);
+                if (mPathMeasure.getLength() > STROKE_WIDTH * 0.75) {
                     mCanvas.drawPath(mPath, mPaint);
                     mPath.reset();
                     mPath.moveTo(mX, mY);
-
-                    if (mPaint.getColor() != Color.LTGRAY) {
-                        mPaint.setColor(Color.LTGRAY);
-                    } else mPaint.setColor(mSelectedColor);
-
+                    if (mInstructionSegment < mInstruction.size()) {
+                        mPaint.setColor(mInstruction.get(mInstructionSegment));
+                    } else {
+                        mPaint.setColor(mSelectedColor);
+                        mInstruction = null;
+                        mInstructionSegment = 0;
+                    }
+                    mInstructionSegment++;
                 }
             }
         }
@@ -135,6 +146,9 @@ public class MainActivity extends AppCompatActivity {
             mCanvas.drawPath(mPath, mPaint);
             // kill this so we don't double draw
             mPath.reset();
+            mPaint.setColor(mSelectedColor); //to tady musí být kvůli nedokresleným pokynům
+            mInstruction = null;
+            mInstructionSegment = 0;
         }
 
         @Override

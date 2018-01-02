@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/OzoDraw.iml" filepath="$PROJECT_DIR$/OzoDraw.iml" />
-      <module fileurl="file://C:\devel\android\OzoDraw\OzoDraw.iml" filepath="C:\devel\android\OzoDraw\OzoDraw.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\devel\android\OzoDraw\app\app.iml" filepath="C:\devel\android\OzoDraw\app\app.iml" />
     </modules>
   </component>
 </project>
