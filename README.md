@@ -1,2 +1,2 @@
 # OzoDraw
-Simple app to play with [Ozobot](http://www.ozobot.com)
+Simple app to play [Ozobot](http://www.ozobot.com)
