@@ -1,7 +1,9 @@
 package eu.kamilsvoboda.ozodraw;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -34,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private Paint mPaint;
     private int mSelectedColor = Color.BLACK;
 
-    private ArrayList<Integer> mInstruction = null;
-    private int mInstructionSegment = 0;
+    private ArrayList<Integer> mDirection = null;
+    private int mDirectionSegment = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,21 @@ public class MainActivity extends AppCompatActivity {
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+
+            mDirection = new ArrayList<>(3);
+            mDirection.add(COLOR_BLUE);
+            mDirection.add(COLOR_RED);
+            mDirection.add(COLOR_BLUE);
+            mDirectionSegment = 0;
+
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+            }
+        }
+    }
     public class MyView extends View {
 
         private Bitmap mBitmap;
@@ -101,13 +118,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void touch_start(float x, float y) {
-
-            mInstruction = new ArrayList<>(3);
-            mInstruction.add(COLOR_BLUE);
-            mInstruction.add(COLOR_RED);
-            mInstruction.add(COLOR_BLUE);
-            mInstructionSegment = 0;
-
             mPath.reset();
             mPath.moveTo(x, y);
             mX = x;
@@ -122,20 +132,21 @@ public class MainActivity extends AppCompatActivity {
                 mX = x;
                 mY = y;
             }
-            if (mInstruction != null) {
+            //vykreslení pokynu
+            if (mDirection != null) {
                 mPathMeasure.setPath(mPath, false);
                 if (mPathMeasure.getLength() > STROKE_WIDTH * 0.75) {
                     mCanvas.drawPath(mPath, mPaint);
                     mPath.reset();
                     mPath.moveTo(mX, mY);
-                    if (mInstructionSegment < mInstruction.size()) {
-                        mPaint.setColor(mInstruction.get(mInstructionSegment));
+                    if (mDirectionSegment < mDirection.size()) {
+                        mPaint.setColor(mDirection.get(mDirectionSegment));
                     } else {
                         mPaint.setColor(mSelectedColor);
-                        mInstruction = null;
-                        mInstructionSegment = 0;
+                        mDirection = null;
+                        mDirectionSegment = 0;
                     }
-                    mInstructionSegment++;
+                    mDirectionSegment++;
                 }
             }
         }
@@ -147,8 +158,8 @@ public class MainActivity extends AppCompatActivity {
             // kill this so we don't double draw
             mPath.reset();
             mPaint.setColor(mSelectedColor); //to tady musí být kvůli nedokresleným pokynům
-            mInstruction = null;
-            mInstructionSegment = 0;
+            mDirection = null;
+            mDirectionSegment = 0;
         }
 
         @Override
@@ -204,6 +215,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_color_black:
                 mSelectedColor = Color.BLACK;
                 initPaint();
+                break;
+            case R.id.menu_directions:
+                Intent i = new Intent(this, DirectionsActivity.class);
+                startActivityForResult(i, 1);
                 break;
             case R.id.menu_erase:
                 mPaint.setStrokeWidth(STROKE_WIDTH * 2);

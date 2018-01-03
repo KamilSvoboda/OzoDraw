@@ -25,11 +25,18 @@
             android:icon="@drawable/ic_border_color_black_24dp"
             android:title="@string/menu_color_black"
             app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/menu_directions"
+            android:icon="@drawable/ic_directions_white_24dp"
+            android:title="@string/menu_direction"
+            android:visible="true"
+            app:showAsAction="ifRoom" />
     </group>
+
     <item
         android:id="@+id/menu_erase"
         android:icon="@drawable/ic_format_color_reset_white_24dp"
-        android:title="@string/mennu_erase"
+        android:title="@string/menu_erase"
         android:visible="true"
         app:showAsAction="ifRoom" />
     <item
