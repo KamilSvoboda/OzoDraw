@@ -1,8 +1,7 @@
 package eu.kamilsvoboda.ozodraw;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,9 +39,11 @@ public class CommandListRecyclerViewAdapter extends RecyclerView.Adapter<Command
         CommandsActivity.Command command = mValues.get(position);
         holder.commandButton.setText(command.getTitle());
 
-        Resources resources = mContext.getResources();
-        Drawable drawable = resources.getDrawable(command.getImageId());
-        holder.commandButton.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null);
+        holder.commandButton.setCompoundDrawablesWithIntrinsicBounds(
+                null,
+                new BitmapDrawable(mContext.getResources(), CommandBitmapBuilder.getCommandBitmap(command.getColors())),
+                null,
+                null);
 
         holder.commandButton.setOnClickListener(new View.OnClickListener() {
             @Override

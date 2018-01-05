@@ -77,15 +77,15 @@ public class CommandsActivity extends AppCompatActivity implements CommandListRe
 
         mCommandDirections = new ArrayList<>();
         mCommandDirections.add(
-                new Command("U-turn", R.drawable.ic_delete_white_24dp, Arrays.asList(COLOR_BLUE, COLOR_RED, COLOR_BLUE)));
+                new Command("U-turn", Arrays.asList(COLOR_BLUE, COLOR_RED, COLOR_BLUE)));
 
         mCommandSpeeds = new ArrayList<>();
         mCommandSpeeds.add(
-                new Command("Nitro 3 sec.", R.drawable.ic_delete_white_24dp, Arrays.asList(COLOR_BLUE, COLOR_GREEN, COLOR_RED)));
+                new Command("Nitro 3 sec.", Arrays.asList(COLOR_BLUE, COLOR_GREEN, COLOR_RED)));
 
         mCommandMoves = new ArrayList<>();
         mCommandMoves.add(
-                new Command("Spin", R.drawable.ic_delete_white_24dp, Arrays.asList(COLOR_GREEN, COLOR_RED, COLOR_GREEN, COLOR_RED)));
+                new Command("Spin", Arrays.asList(COLOR_GREEN, COLOR_RED, COLOR_GREEN, COLOR_RED)));
     }
 
     @Override
@@ -153,12 +153,10 @@ public class CommandsActivity extends AppCompatActivity implements CommandListRe
      */
     class Command {
         private String title;
-        private Integer imageId;
         private ArrayList<Integer> colors;
 
-        public Command(String title, Integer imageId, List<Integer> colors) {
+        public Command(String title, List<Integer> colors) {
             this.title = title;
-            this.imageId = imageId;
             this.colors = new ArrayList<>(colors);
         }
 
@@ -168,14 +166,6 @@ public class CommandsActivity extends AppCompatActivity implements CommandListRe
 
         public void setTitle(String title) {
             this.title = title;
-        }
-
-        public Integer getImageId() {
-            return imageId;
-        }
-
-        public void setImageId(Integer imageId) {
-            this.imageId = imageId;
         }
 
         public ArrayList<Integer> getColors() {
