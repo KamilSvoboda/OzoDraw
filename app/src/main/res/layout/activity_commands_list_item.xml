@@ -2,6 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="16dp"
+    android:paddingBottom="8dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -11,10 +13,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textAllCaps="true"
+        android:background="@android:color/transparent"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:drawableTop="@drawable/ic_delete_white_24dp"
+        android:textSize="16sp"
         tools:text="@string/command_direction_straight_on" />
 </android.support.constraint.ConstraintLayout>

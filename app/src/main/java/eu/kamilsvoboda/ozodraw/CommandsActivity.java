@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -136,18 +137,24 @@ public class CommandsActivity extends AppCompatActivity implements CommandListRe
             if (position == 0) {
                 mCommandSpeedsList = rootView.findViewById(R.id.commands_list);
                 mCommandSpeedsList.setHasFixedSize(true);
+                mCommandSpeedsList.addItemDecoration(new DividerItemDecoration(CommandsActivity.this,
+                        layoutManager.getOrientation()));
                 mCommandSpeedsList.setLayoutManager(layoutManager);
                 mCommandSpeedsList.setAdapter(new CommandListRecyclerViewAdapter(mCommandSpeeds,
                         CommandsActivity.this));
             } else if (position == 1) {
                 mCommandDirectionsList = rootView.findViewById(R.id.commands_list);
                 mCommandDirectionsList.setHasFixedSize(true);
+                mCommandDirectionsList.addItemDecoration(new DividerItemDecoration(CommandsActivity.this,
+                        layoutManager.getOrientation()));
                 mCommandDirectionsList.setLayoutManager(layoutManager);
                 mCommandDirectionsList.setAdapter(new CommandListRecyclerViewAdapter(mCommandDirections,
                         CommandsActivity.this));
             } else {
                 mCommandMovesList = rootView.findViewById(R.id.commands_list);
                 mCommandMovesList.setHasFixedSize(true);
+                mCommandMovesList.addItemDecoration(new DividerItemDecoration(CommandsActivity.this,
+                        layoutManager.getOrientation()));
                 mCommandMovesList.setLayoutManager(layoutManager);
                 mCommandMovesList.setAdapter(new CommandListRecyclerViewAdapter(mCommandMoves,
                         CommandsActivity.this));

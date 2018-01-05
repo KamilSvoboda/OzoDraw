@@ -39,6 +39,7 @@ public class CommandListRecyclerViewAdapter extends RecyclerView.Adapter<Command
         CommandsActivity.Command command = mValues.get(position);
         holder.commandButton.setText(command.getTitle());
 
+        holder.commandButton.setCompoundDrawablePadding(20);
         holder.commandButton.setCompoundDrawablesWithIntrinsicBounds(
                 null,
                 new BitmapDrawable(mContext.getResources(), CommandBitmapBuilder.getCommandBitmap(command.getColors())),
