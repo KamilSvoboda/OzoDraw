@@ -28,9 +28,9 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private static int COLOR_RED = Color.parseColor("#910a0a");
-    private static int COLOR_GREEN = Color.parseColor("#247c07");
-    private static int COLOR_BLUE = Color.parseColor("#190a91");
+    public static int COLOR_RED = Color.parseColor("#910a0a");
+    public static int COLOR_GREEN = Color.parseColor("#247c07");
+    public static int COLOR_BLUE = Color.parseColor("#190a91");
     private static float STROKE_WIDTH = 45;
     MyView mv;
     private Paint mPaint;
@@ -64,19 +64,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-
-            mDirection = new ArrayList<>(3);
-            mDirection.add(COLOR_BLUE);
-            mDirection.add(COLOR_RED);
-            mDirection.add(COLOR_BLUE);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data.hasExtra(CommandsActivity.RESULT_DATA)) {
+            mDirection = data.getIntegerArrayListExtra(CommandsActivity.RESULT_DATA);
             mDirectionSegment = 0;
-
-            if(resultCode == Activity.RESULT_OK){
-                String result=data.getStringExtra("result");
-            }
         }
     }
+
     public class MyView extends View {
 
         private Bitmap mBitmap;
@@ -217,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
                 initPaint();
                 break;
             case R.id.menu_directions:
-                Intent i = new Intent(this, DirectionsActivity.class);
+                Intent i = new Intent(this, CommandsActivity.class);
                 startActivityForResult(i, 1);
                 break;
             case R.id.menu_erase:

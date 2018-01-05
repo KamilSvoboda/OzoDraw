@@ -9,10 +9,12 @@
     <string name="menu_color_blue">Blue</string>
     <string name="menu_color_green">Green</string>
     <string name="menu_color_red">Red</string>
-    <string name="menu_direction">Directions</string>
+    <string name="menu_command">Commands</string>
 
-    <string name="title_activity_directions">Directions</string>
+    <string name="title_activity_commands">Commands</string>
     <string name="title_speed">Speed</string>
     <string name="title_direction">Direction</string>
     <string name="title_moves">Moves</string>
+
+    <string name="command_direction_straight_on">Straign on</string>
 </resources>

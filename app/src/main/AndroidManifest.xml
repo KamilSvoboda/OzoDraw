@@ -17,8 +17,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DirectionsActivity"
-            android:label="@string/title_activity_directions"></activity>
+            android:name=".CommandsActivity"
+            android:label="@string/title_activity_commands"/>
     </application>
 
 </manifest>
