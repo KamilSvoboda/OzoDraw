@@ -16,5 +16,18 @@
     <string name="title_direction">Direction</string>
     <string name="title_moves">Moves</string>
 
-    <string name="command_direction_straight_on">Straign on</string>
+    <string name="command_speed_slow">Slow</string>
+    <string name="command_speed_cruise">Cruise</string>
+    <string name="command_speed_fast">Fast</string>
+    <string name="command_speed_turbo">Turbo</string>
+    <string name="command_speed_snail">Snail 3 sec.</string>
+    <string name="command_speed_nitro">Nitro 3 sec.</string>
+    <string name="command_speed_pause">3 seconds pause</string>
+    <string name="command_direction_straight">Go straight</string>
+    <string name="command_direction_right">Go right</string>
+    <string name="command_direction_left">Go left</string>
+    <string name="command_direction_u_turn">U-turn</string>
+    <string name="command_direction_jump_straight">Jump straight</string>
+    <string name="command_direction_jump_right">Jump right</string>
+    <string name="command_direction_jump_left">Jump left</string>
 </resources>

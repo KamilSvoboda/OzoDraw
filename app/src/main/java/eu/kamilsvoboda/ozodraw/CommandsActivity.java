@@ -78,25 +78,35 @@ public class CommandsActivity extends AppCompatActivity implements CommandListRe
 
         mCommandSpeeds = new ArrayList<>();
         mCommandSpeeds.add(
-                new Command("Slow", Arrays.asList(COLOR_RED, Color.BLACK, COLOR_RED)));
+                new Command(getString(R.string.command_speed_slow), Arrays.asList(COLOR_RED, Color.BLACK, COLOR_RED)));
         mCommandSpeeds.add(
-                new Command("Cruise", Arrays.asList(COLOR_GREEN, Color.BLACK, COLOR_GREEN)));
+                new Command(getString(R.string.command_speed_cruise), Arrays.asList(COLOR_GREEN, Color.BLACK, COLOR_GREEN)));
         mCommandSpeeds.add(
-                new Command("Fast", Arrays.asList(COLOR_BLUE, Color.BLACK, COLOR_BLUE)));
+                new Command(getString(R.string.command_speed_fast), Arrays.asList(COLOR_BLUE, Color.BLACK, COLOR_BLUE)));
         mCommandSpeeds.add(
-                new Command("Turbo", Arrays.asList(COLOR_BLUE, COLOR_GREEN, COLOR_BLUE)));
+                new Command(getString(R.string.command_speed_turbo), Arrays.asList(COLOR_BLUE, COLOR_GREEN, COLOR_BLUE)));
         mCommandSpeeds.add(
-                new Command("Snail", Arrays.asList(COLOR_RED, COLOR_GREEN, COLOR_BLUE)));
+                new Command(getString(R.string.command_speed_snail), Arrays.asList(COLOR_RED, COLOR_GREEN, COLOR_BLUE)));
         mCommandSpeeds.add(
-                new Command("Nitro 3 sec.", Arrays.asList(COLOR_BLUE, COLOR_GREEN, COLOR_RED)));
+                new Command(getString(R.string.command_speed_nitro), Arrays.asList(COLOR_BLUE, COLOR_GREEN, COLOR_RED)));
+        mCommandSpeeds.add(
+                new Command(getString(R.string.command_speed_pause), Arrays.asList(COLOR_RED, COLOR_BLUE, COLOR_RED)));
 
         mCommandDirections = new ArrayList<>();
         mCommandDirections.add(
-                new Command("Go Right", Arrays.asList(COLOR_BLUE, COLOR_RED, COLOR_GREEN)));
+                new Command(getString(R.string.command_direction_straight), Arrays.asList(COLOR_BLUE, Color.BLACK, COLOR_RED)));
         mCommandDirections.add(
-                new Command("Go Left", Arrays.asList(COLOR_GREEN, Color.BLACK, COLOR_RED)));
+                new Command(getString(R.string.command_direction_right), Arrays.asList(COLOR_BLUE, COLOR_RED, COLOR_GREEN)));
         mCommandDirections.add(
-                new Command("U-turn", Arrays.asList(COLOR_BLUE, COLOR_RED, COLOR_BLUE)));
+                new Command(getString(R.string.command_direction_left), Arrays.asList(COLOR_GREEN, Color.BLACK, COLOR_RED)));
+        mCommandDirections.add(
+                new Command(getString(R.string.command_direction_jump_straight), Arrays.asList(COLOR_GREEN, COLOR_BLUE, COLOR_GREEN)));
+        mCommandDirections.add(
+                new Command(getString(R.string.command_direction_jump_right), Arrays.asList(COLOR_RED, COLOR_GREEN, COLOR_RED)));
+        mCommandDirections.add(
+                new Command(getString(R.string.command_direction_jump_left), Arrays.asList(COLOR_GREEN, COLOR_RED, COLOR_GREEN)));
+        mCommandDirections.add(
+                new Command(getString(R.string.command_direction_u_turn), Arrays.asList(COLOR_BLUE, COLOR_RED, COLOR_BLUE)));
 
         mCommandMoves = new ArrayList<>();
         mCommandMoves.add(

@@ -16,4 +16,18 @@
     <string name="title_direction">Směr</string>
     <string name="title_moves">Pohyby</string>
 
+    <string name="command_speed_slow">Pomalu</string>
+    <string name="command_speed_cruise">Volně</string>
+    <string name="command_speed_fast">Rychle</string>
+    <string name="command_speed_turbo">Turbo</string>
+    <string name="command_speed_snail">Hlemýžď 3 sek.</string>
+    <string name="command_speed_nitro">Nitro 3 sek.</string>
+    <string name="command_speed_pause">3 sekundy pauza</string>
+    <string name="command_direction_straight">Rovně</string>
+    <string name="command_direction_right">Zahnout doprava</string>
+    <string name="command_direction_left">Zahnout doleva</string>
+    <string name="command_direction_u_turn">Otočit se</string>
+    <string name="command_direction_jump_straight">Přeskočit rovně</string>
+    <string name="command_direction_jump_right">Přeskočit doprava</string>
+    <string name="command_direction_jump_left">Přeskočit doleva</string>
 </resources>
