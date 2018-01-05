@@ -2,6 +2,7 @@ package eu.kamilsvoboda.ozodraw;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -75,13 +76,27 @@ public class CommandsActivity extends AppCompatActivity implements CommandListRe
         mNavigationTabBar.setModels(models);
         mNavigationTabBar.setViewPager(mViewPager, 0);
 
-        mCommandDirections = new ArrayList<>();
-        mCommandDirections.add(
-                new Command("U-turn", Arrays.asList(COLOR_BLUE, COLOR_RED, COLOR_BLUE)));
-
         mCommandSpeeds = new ArrayList<>();
         mCommandSpeeds.add(
+                new Command("Slow", Arrays.asList(COLOR_RED, Color.BLACK, COLOR_RED)));
+        mCommandSpeeds.add(
+                new Command("Cruise", Arrays.asList(COLOR_GREEN, Color.BLACK, COLOR_GREEN)));
+        mCommandSpeeds.add(
+                new Command("Fast", Arrays.asList(COLOR_BLUE, Color.BLACK, COLOR_BLUE)));
+        mCommandSpeeds.add(
+                new Command("Turbo", Arrays.asList(COLOR_BLUE, COLOR_GREEN, COLOR_BLUE)));
+        mCommandSpeeds.add(
+                new Command("Snail", Arrays.asList(COLOR_RED, COLOR_GREEN, COLOR_BLUE)));
+        mCommandSpeeds.add(
                 new Command("Nitro 3 sec.", Arrays.asList(COLOR_BLUE, COLOR_GREEN, COLOR_RED)));
+
+        mCommandDirections = new ArrayList<>();
+        mCommandDirections.add(
+                new Command("Go Right", Arrays.asList(COLOR_BLUE, COLOR_RED, COLOR_GREEN)));
+        mCommandDirections.add(
+                new Command("Go Left", Arrays.asList(COLOR_GREEN, Color.BLACK, COLOR_RED)));
+        mCommandDirections.add(
+                new Command("U-turn", Arrays.asList(COLOR_BLUE, COLOR_RED, COLOR_BLUE)));
 
         mCommandMoves = new ArrayList<>();
         mCommandMoves.add(
