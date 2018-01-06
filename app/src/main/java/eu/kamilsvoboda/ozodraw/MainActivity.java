@@ -203,6 +203,8 @@ public class MainActivity extends AppCompatActivity {
                 initPaint();
                 break;
             case R.id.menu_directions:
+                mSelectedColor = Color.BLACK; //musíme iniciovat pero, aby se zrušila případná guma
+                initPaint();
                 Intent i = new Intent(this, CommandsActivity.class);
                 startActivityForResult(i, 1);
                 break;
