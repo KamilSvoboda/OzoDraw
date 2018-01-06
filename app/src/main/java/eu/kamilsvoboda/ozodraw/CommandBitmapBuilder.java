@@ -9,16 +9,15 @@ import android.graphics.Rect;
 import java.util.ArrayList;
 
 /**
+ * Třída generující bitmapy jednotlivých pokynů
  * Created by Kamil Svoboda on 5.1.2018.
  */
-
-public class CommandBitmapBuilder {
-    private static Integer WIDTH = 480;
-    private static Integer HEIGHT = 80;
-
-    public static Bitmap getCommandBitmap(ArrayList<Integer> colors) {
-
+class CommandBitmapBuilder {
+    static Bitmap getCommandBitmap(ArrayList<Integer> colors) {
         //https://android--code.blogspot.cz/2015/11/android-how-to-draw-rectangle-on-canvas.html
+        Integer HEIGHT = MainActivity.STROKE_WIDTH;
+        Integer WIDTH = HEIGHT * 6;
+
         Bitmap bitmap = Bitmap.createBitmap(
                 WIDTH, // Width
                 HEIGHT, // Height

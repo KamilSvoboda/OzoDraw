@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     public static int COLOR_RED = Color.parseColor("#910a0a");
     public static int COLOR_GREEN = Color.parseColor("#247c07");
     public static int COLOR_BLUE = Color.parseColor("#190a91");
-    private static float STROKE_WIDTH = 45;
+    public static int STROKE_WIDTH = 45;
     MyView mv;
     private Paint mPaint;
     private int mSelectedColor = Color.BLACK;
