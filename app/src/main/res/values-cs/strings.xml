@@ -30,4 +30,6 @@
     <string name="command_direction_jump_straight">Přeskočit rovně</string>
     <string name="command_direction_jump_right">Přeskočit doprava</string>
     <string name="command_direction_jump_left">Přeskočit doleva</string>
+    <string name="menu_stroke_width">Šířka pera</string>
+    <string name="stroke_width_dialog_title">Nastavte šířku pera</string>
 </resources>

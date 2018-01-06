@@ -2,6 +2,7 @@ package eu.kamilsvoboda.ozodraw;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -13,12 +14,15 @@ import android.graphics.PathMeasure;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.NumberPicker;
 
 import java.util.ArrayList;
 
@@ -28,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public static int COLOR_BLUE = Color.parseColor("#190a91");
 
     public static final String MAIN_SHARED_PREFS_FILE = "mainPrefs";
-    public static final String STROKE_WIDTH_KEY ="strokeWidth";
+    public static final String STROKE_WIDTH_KEY = "strokeWidth";
     MyView mv;
     private Paint mPaint;
     private int mSelectedColor = Color.BLACK;
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private int mStrokeWidth = 0;
 
     private SharedPreferences mSharePrefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,14 +61,13 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Vrátí šířku čáry
+     *
      * @return
      */
-    public int getStrokeWidth()
-    {
-        if (mStrokeWidth == 0)
-        {
+    public int getStrokeWidth() {
+        if (mStrokeWidth == 0) {
             DisplayMetrics metrics = getResources().getDisplayMetrics();
-            mStrokeWidth =  metrics.densityDpi / 4;
+            mStrokeWidth = metrics.densityDpi / 4;
             mSharePrefs.edit().putInt(STROKE_WIDTH_KEY, mStrokeWidth).apply();
         }
         return mStrokeWidth;
@@ -241,6 +245,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_new:
                 mv.clear();
                 break;
+            case R.id.menu_stroke_width:
+                changeStrokeWidth();
+                break;
             /*case R.id.menu_save:
                 AlertDialog.Builder editalert = new AlertDialog.Builder(MainActivity.this);
                 editalert.setTitle("Please Enter the name with which you want to Save");
@@ -279,5 +286,41 @@ public class MainActivity extends AppCompatActivity {
                 break;*/
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void changeStrokeWidth() {
+        final AlertDialog.Builder d = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.activity_main_number_picker_dialog, null);
+        d.setTitle(getString(R.string.stroke_width_dialog_title));
+        //d.setMessage("Message");
+        d.setView(dialogView);
+        final NumberPicker numberPicker = (NumberPicker) dialogView.findViewById(R.id.dialog_number_picker);
+        numberPicker.setMaxValue(500);
+        numberPicker.setMinValue(1);
+        numberPicker.setValue(mStrokeWidth);
+        numberPicker.setWrapSelectorWheel(false);
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                //TODO: dynamický příklad říšky čáry
+            }
+        });
+        d.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                mStrokeWidth = numberPicker.getValue();
+                initPaint();
+                mSharePrefs.edit().putInt(STROKE_WIDTH_KEY, mStrokeWidth).apply();
+            }
+        });
+        d.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog alertDialog = d.create();
+        alertDialog.show();
     }
 }

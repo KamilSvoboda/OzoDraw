@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <group
         android:id="@+id/group_colors"
-        android:visible="true">
+        android:checkableBehavior="single">
         <item
             android:id="@+id/menu_color_red"
             android:icon="@drawable/ic_border_color_red_500_24dp"
@@ -33,22 +32,34 @@
             app:showAsAction="ifRoom" />
     </group>
 
-    <item
-        android:id="@+id/menu_erase"
-        android:icon="@drawable/ic_format_color_reset_white_24dp"
-        android:title="@string/menu_erase"
-        android:visible="true"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/menu_new"
-        android:icon="@drawable/ic_delete_white_24dp"
-        android:title="@string/menu_new"
-        android:visible="true"
-        app:showAsAction="ifRoom" />
-<!--    <item
-        android:id="@+id/menu_save"
-        android:icon="@drawable/ic_save_white_24dp"
-        android:title="@string/menu_save"
-        android:visible="true"
-        app:showAsAction="never" />-->
+    <group android:id="@+id/tools"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/menu_erase"
+            android:icon="@drawable/ic_format_color_reset_white_24dp"
+            android:title="@string/menu_erase"
+            android:visible="true"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/menu_new"
+            android:icon="@drawable/ic_delete_white_24dp"
+            android:title="@string/menu_new"
+            android:visible="true"
+            app:showAsAction="ifRoom" />
+    </group>
+    <group android:id="@+id/settings"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/menu_stroke_width"
+            android:icon="@drawable/ic_vertical_align_center_white_24dp"
+            android:title="@string/menu_stroke_width"
+            android:visible="true"
+            app:showAsAction="never" />
+    </group>
+    <!--    <item
+            android:id="@+id/menu_save"
+            android:icon="@drawable/ic_save_white_24dp"
+            android:title="@string/menu_save"
+            android:visible="true"
+            app:showAsAction="never" />-->
 </menu>
