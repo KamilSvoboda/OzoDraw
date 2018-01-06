@@ -1,7 +1,9 @@
 package eu.kamilsvoboda.ozodraw;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -23,31 +25,32 @@ import devlight.io.library.ntb.NavigationTabBar;
 import static eu.kamilsvoboda.ozodraw.MainActivity.COLOR_BLUE;
 import static eu.kamilsvoboda.ozodraw.MainActivity.COLOR_GREEN;
 import static eu.kamilsvoboda.ozodraw.MainActivity.COLOR_RED;
+import static eu.kamilsvoboda.ozodraw.MainActivity.MAIN_SHARED_PREFS_FILE;
+import static eu.kamilsvoboda.ozodraw.MainActivity.STROKE_WIDTH_KEY;
 
 public class CommandsActivity extends AppCompatActivity implements CommandListRecyclerViewAdapter.ICommandListItemListener {
 
     public static final String RESULT_DATA = "COMMAND";
 
-    private ViewPager mViewPager;
-    private NavigationTabBar mNavigationTabBar;
-
     private ArrayList<Command> mCommandDirections;
     private ArrayList<Command> mCommandSpeeds;
     private ArrayList<Command> mCommandMoves;
 
-    private RecyclerView mCommandDirectionsList;
-    private RecyclerView mCommandSpeedsList;
-    private RecyclerView mCommandMovesList;
+    private SharedPreferences mSharePrefs;
+    private int mStrokeWidth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commands);
 
-        mViewPager = findViewById(R.id.view_pager);
+        mSharePrefs = getSharedPreferences(MAIN_SHARED_PREFS_FILE, Context.MODE_PRIVATE);
+        mStrokeWidth = mSharePrefs.getInt(STROKE_WIDTH_KEY, 40);
+
+        ViewPager mViewPager = findViewById(R.id.view_pager);
         mViewPager.setAdapter(new MyPagerAdapter());
 
-        mNavigationTabBar = findViewById(R.id.navigation_tab_bar);
+        NavigationTabBar mNavigationTabBar = findViewById(R.id.navigation_tab_bar);
         final ArrayList<NavigationTabBar.Model> models = new ArrayList<>();
         models.add(
                 new NavigationTabBar.Model.Builder(
@@ -135,28 +138,28 @@ public class CommandsActivity extends AppCompatActivity implements CommandListRe
             LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext());
 
             if (position == 0) {
-                mCommandSpeedsList = rootView.findViewById(R.id.commands_list);
+                RecyclerView mCommandSpeedsList = rootView.findViewById(R.id.commands_list);
                 mCommandSpeedsList.setHasFixedSize(true);
                 mCommandSpeedsList.addItemDecoration(new DividerItemDecoration(CommandsActivity.this,
                         layoutManager.getOrientation()));
                 mCommandSpeedsList.setLayoutManager(layoutManager);
-                mCommandSpeedsList.setAdapter(new CommandListRecyclerViewAdapter(mCommandSpeeds,
+                mCommandSpeedsList.setAdapter(new CommandListRecyclerViewAdapter(mCommandSpeeds, mStrokeWidth,
                         CommandsActivity.this));
             } else if (position == 1) {
-                mCommandDirectionsList = rootView.findViewById(R.id.commands_list);
+                RecyclerView mCommandDirectionsList = rootView.findViewById(R.id.commands_list);
                 mCommandDirectionsList.setHasFixedSize(true);
                 mCommandDirectionsList.addItemDecoration(new DividerItemDecoration(CommandsActivity.this,
                         layoutManager.getOrientation()));
                 mCommandDirectionsList.setLayoutManager(layoutManager);
-                mCommandDirectionsList.setAdapter(new CommandListRecyclerViewAdapter(mCommandDirections,
+                mCommandDirectionsList.setAdapter(new CommandListRecyclerViewAdapter(mCommandDirections, mStrokeWidth,
                         CommandsActivity.this));
             } else {
-                mCommandMovesList = rootView.findViewById(R.id.commands_list);
+                RecyclerView mCommandMovesList = rootView.findViewById(R.id.commands_list);
                 mCommandMovesList.setHasFixedSize(true);
                 mCommandMovesList.addItemDecoration(new DividerItemDecoration(CommandsActivity.this,
                         layoutManager.getOrientation()));
                 mCommandMovesList.setLayoutManager(layoutManager);
-                mCommandMovesList.setAdapter(new CommandListRecyclerViewAdapter(mCommandMoves,
+                mCommandMovesList.setAdapter(new CommandListRecyclerViewAdapter(mCommandMoves, mStrokeWidth,
                         CommandsActivity.this));
             }
 

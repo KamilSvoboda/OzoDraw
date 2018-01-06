@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * Created by Kamil Svoboda on 5.1.2018.
  */
 class CommandBitmapBuilder {
-    static Bitmap getCommandBitmap(ArrayList<Integer> colors) {
+    static Bitmap getCommandBitmap(ArrayList<Integer> colors, int strokeWidth) {
         //https://android--code.blogspot.cz/2015/11/android-how-to-draw-rectangle-on-canvas.html
-        Integer HEIGHT = MainActivity.STROKE_WIDTH;
+        Integer HEIGHT = strokeWidth;
         Integer WIDTH = HEIGHT * 6;
 
         Bitmap bitmap = Bitmap.createBitmap(

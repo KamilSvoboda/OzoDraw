@@ -18,10 +18,12 @@ public class CommandListRecyclerViewAdapter extends RecyclerView.Adapter<Command
     private final ArrayList<CommandsActivity.Command> mValues;
     private final ICommandListItemListener mListener;
     private Context mContext;
+    private int mStrokeWidth;
 
-    public CommandListRecyclerViewAdapter(ArrayList<CommandsActivity.Command> items, ICommandListItemListener listener) {
+    public CommandListRecyclerViewAdapter(ArrayList<CommandsActivity.Command> items, int strokeWidth, ICommandListItemListener listener) {
         mValues = items;
         mListener = listener;
+        mStrokeWidth = strokeWidth;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class CommandListRecyclerViewAdapter extends RecyclerView.Adapter<Command
         holder.commandButton.setCompoundDrawablePadding(20);
         holder.commandButton.setCompoundDrawablesWithIntrinsicBounds(
                 null,
-                new BitmapDrawable(mContext.getResources(), CommandBitmapBuilder.getCommandBitmap(command.getColors())),
+                new BitmapDrawable(mContext.getResources(), CommandBitmapBuilder.getCommandBitmap(command.getColors(), mStrokeWidth)),
                 null,
                 null);
 

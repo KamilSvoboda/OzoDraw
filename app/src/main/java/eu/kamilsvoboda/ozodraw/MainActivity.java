@@ -3,6 +3,7 @@ package eu.kamilsvoboda.ozodraw;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -24,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
     public static int COLOR_RED = Color.parseColor("#910a0a");
     public static int COLOR_GREEN = Color.parseColor("#247c07");
     public static int COLOR_BLUE = Color.parseColor("#190a91");
-    public static int STROKE_WIDTH = 45;
+
+    public static final String MAIN_SHARED_PREFS_FILE = "mainPrefs";
+    public static final String STROKE_WIDTH_KEY ="strokeWidth";
     MyView mv;
     private Paint mPaint;
     private int mSelectedColor = Color.BLACK;
@@ -32,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Integer> mDirection = null;
     private int mDirectionSegment = 0;
 
+    private int mStrokeWidth = 0;
+
+    private SharedPreferences mSharePrefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +47,26 @@ public class MainActivity extends AppCompatActivity {
         mv.setDrawingCacheEnabled(true);
 
         setContentView(mv);
+
+        mSharePrefs = getSharedPreferences(MAIN_SHARED_PREFS_FILE, Context.MODE_PRIVATE);
+        mStrokeWidth = mSharePrefs.getInt(STROKE_WIDTH_KEY, 0);
+
         initPaint();
+    }
+
+    /**
+     * Vrátí šířku čáry
+     * @return
+     */
+    public int getStrokeWidth()
+    {
+        if (mStrokeWidth == 0)
+        {
+            DisplayMetrics metrics = getResources().getDisplayMetrics();
+            mStrokeWidth =  metrics.densityDpi / 4;
+            mSharePrefs.edit().putInt(STROKE_WIDTH_KEY, mStrokeWidth).apply();
+        }
+        return mStrokeWidth;
     }
 
     private void initPaint() {
@@ -51,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
-        mPaint.setStrokeWidth(STROKE_WIDTH);
+        mPaint.setStrokeWidth(getStrokeWidth());
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
     }
 
@@ -121,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             //vykreslení pokynu
             if (mDirection != null) {
                 mPathMeasure.setPath(mPath, false);
-                if (mPathMeasure.getLength() > STROKE_WIDTH * 0.75) {
+                if (mPathMeasure.getLength() > getStrokeWidth() * 0.75) {
                     mCanvas.drawPath(mPath, mPaint);
                     mPath.reset();
                     mPath.moveTo(mX, mY);
@@ -209,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(i, 1);
                 break;
             case R.id.menu_erase:
-                mPaint.setStrokeWidth(STROKE_WIDTH * 2);
+                mPaint.setStrokeWidth(getStrokeWidth() * 2);
                 mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
                 break;
             case R.id.menu_new:
